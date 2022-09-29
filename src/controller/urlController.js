@@ -24,4 +24,12 @@ const createUrl = async function(req,res){
 }
 
 
-module.exports = {createUrl}
+const redirect = async function (req,res){
+    let urlCode = req.params.urlCode
+    let  urlnew = await urlModel.findOne({urlCode:urlCode})
+    if(!urlnew) return (res.status(404).send({status:false,msg:"url is not present"}))
+    res.status(302).send(urlnew.longUrl)
+}
+
+
+module.exports = {createUrl,redirect}
