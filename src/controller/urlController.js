@@ -9,6 +9,8 @@ const createUrl = async function(req,res){
         if(!req.body.longUrl || typeof req.body.longUrl !== 'string') return res.status(400).send({status:false,message: "Please provide original url"})
         if(!validUrl.isUri(req.body.longUrl.trim())) return res.status(400).send({status:false,message: "Please provide a valid url"})
         let data = req.body
+        let alreadyExist = await urlModel.findOne(data)
+        if(alreadyExist) return res.status(201).send({status:true,data:alreadyExist})
         let urlCode = shortid.generate().toLowerCase()
         let shortUrl = `http://localhost:3000/${urlCode}`
         data.urlCode = urlCode
