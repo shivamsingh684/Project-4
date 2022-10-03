@@ -14,9 +14,12 @@ mongoose.connect("mongodb+srv://ritikkohli:eJ9TDANLzfmCixVu@cluster0.gd4mqlp.mon
 .catch ( err => console.log(err) )
 
 app.use('/', route);
+
 app.use(function(req,res){
     return res.status(404).send({status:false,message:"Path not Found."})
   })
+
+
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
