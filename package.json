@@ -4,7 +4,8 @@
   "description": "Plutonium\r Scalable URL Shortner Project Requirement\r Phase I\r Overview\r URL shortening is used to create shorter aliases for long URLs. We call these shortened aliases “short links.” Users are redirected to the original URL when they hit these short links. Short links save a lot of space when displayed, printed, messaged, or tweeted. Additionally, users are less likely to mistype shorter URLs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon src/index"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/ritikkohli/project4group50#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "express": "^4.18.1",
     "mongoose": "^6.6.2",
