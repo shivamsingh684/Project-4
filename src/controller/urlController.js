@@ -33,22 +33,24 @@ const createUrl = async function(req,res){
         if(!req.body) return  res.status(400).send({status:false,message: "Request body can't be empty"})
         if(!req.body.longUrl || typeof req.body.longUrl !== 'string') return res.status(400).send({status:false,message: "Please provide original url"})
         let flag=0
+        
         await axios.get(req.body.longUrl).then(function (response) {
           console.log("success");
-          flag=1
         }).catch(function (error) {
-          if(error)
-          return res.status(400).send({status:false,message:"Please send valid Url"})
+          flag=1
         });
         
+        if(flag==1)
+        return res.status(400).send({status:false,message:"Please send valid Url"})
+
         let data = req.body
 
         let alreadyExist = await GET_ASYNC(`${req.body.longUrl}`)
 
-        if(alreadyExist && flag==1) {
+        if(alreadyExist) {
             return res.status(200).send({status:true,message:"already exists",data:JSON.parse(alreadyExist)})
         }
-        else if(flag==1)
+        else 
         {
             let urlCode = shortid.generate().toLowerCase()
             let shortUrl = `http://localhost:3000/${urlCode}`
