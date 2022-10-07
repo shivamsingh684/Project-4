@@ -68,17 +68,18 @@ const createUrl = async function(req,res){
 }
 
 
-const redirect = async function (req,res){
+const redirectGet = async function (req,res){
     try{
         let urlCode = req.params.urlCode
         let cachedURL = await GET_ASYNC(`${req.params.urlCode}`)
-
         if(cachedURL) {
-            return res.redirect({status:true,data:JSON.parse(cachedURL).longUrl})
+            return res.redirect(JSON.parse(cachedURL).longUrl)
           } 
         else 
           {
             let urlnew = await urlModel.findOne({urlCode:urlCode})
+            console.log("yes",urlnew)
+
             if(!urlnew) return (res.status(404).send({status:false,msg:"url is not present"}))
             await SET_ASYNC(`${req.params.urlCode}`, JSON.stringify(urlnew))
             return res.redirect(urlnew.longUrl)
@@ -90,4 +91,4 @@ const redirect = async function (req,res){
 }
 
 
-module.exports = {createUrl,redirect}
+module.exports = {createUrl,redirectGet}
