@@ -78,9 +78,8 @@ const redirectGet = async function (req,res){
         else 
           {
             let urlnew = await urlModel.findOne({urlCode:urlCode})
-            console.log("yes",urlnew)
 
-            if(!urlnew) return (res.status(404).send({status:false,msg:"url is not present"}))
+            if(!urlnew) return (res.status(404).send({status:false,msg:"url is not present in database"}))
             await SET_ASYNC(`${req.params.urlCode}`, JSON.stringify(urlnew))
             return res.redirect(urlnew.longUrl)
           }
