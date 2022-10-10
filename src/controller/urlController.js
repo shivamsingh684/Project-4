@@ -30,7 +30,7 @@ const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
 const createUrl = async function(req,res){
     try{
-        if(!req.body) return  res.status(400).send({status:false,message: "Request body can't be empty"})
+        if(Object.keys(req.body)==0) return  res.status(400).send({status:false,message: "Request body can't be empty"})
         if(!req.body.longUrl || typeof req.body.longUrl !== 'string') return res.status(400).send({status:false,message: "Please provide original url"})
         let flag=0
         
