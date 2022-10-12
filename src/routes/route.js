@@ -1,9 +1,16 @@
-const express = require('express')
-const router = express.Router()
-const urlController = require('../controller/urlController')
+const express = require('express');
+const route = express.Router();
 
-router.post('/url/shorten',urlController.createUrl)
-router.get('/:urlCode',urlController.redirectGet)
+const urlController = require("../controller/urlController");
 
 
-module.exports = router
+route.post("/url/shorten",urlController.createUrl)
+
+route.get("/:urlCode",urlController.getUrl)
+
+
+
+route.all("/*", function (req, res) {
+    res.status(400).send({status: false,message: "The api you request is not available"})
+})
+module.exports = route;

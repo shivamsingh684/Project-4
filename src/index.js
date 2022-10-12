@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const route = require('./routes/route.js');
-const mongoose = require('mongoose');
+const route =require("./routes/route.js");
+const mongoose  = require('mongoose');
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); 
+
 
 mongoose.connect("mongodb+srv://ritikkohli:eJ9TDANLzfmCixVu@cluster0.gd4mqlp.mongodb.net/group50Database", {
     useNewUrlParser: true
@@ -15,12 +14,10 @@ mongoose.connect("mongodb+srv://ritikkohli:eJ9TDANLzfmCixVu@cluster0.gd4mqlp.mon
 
 app.use('/', route);
 
-app.use(function(req,res){
-    return res.status(404).send({status:false,message:"Path not Found."})
-  })
 
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
 
+ 
