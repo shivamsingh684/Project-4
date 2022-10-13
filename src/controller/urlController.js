@@ -20,8 +20,6 @@ redisClient.on("connect", async function () {
 
 
 
-//1. connect to the server
-//2. use the commands :
 
 //Connection setup for redis
 
